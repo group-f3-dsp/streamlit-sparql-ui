@@ -3,3 +3,5 @@ pandas
 networkx
 matplotlib
 requests
+python-dotenv
+google-generativeai
