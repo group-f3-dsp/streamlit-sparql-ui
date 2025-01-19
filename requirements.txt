@@ -1,7 +1,6 @@
 streamlit
 pandas
-networkx
-matplotlib
-requests
+rdflib
+SPARQLWrapper
 python-dotenv
 google-generativeai
