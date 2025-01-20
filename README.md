@@ -48,10 +48,6 @@ This Streamlit app provides an interactive user interface to filter data, visual
 3. Follow the instructions to create a new API key.
 4. Copy the API key and add it to your `.env` file as shown above.
 
-.env
-
- file as shown above.
-
 ## Usage
 1. Run the Streamlit app:
    ```bash
