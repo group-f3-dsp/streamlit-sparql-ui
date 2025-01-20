@@ -1,0 +1,6 @@
+streamlit
+pandas
+rdflib
+SPARQLWrapper
+python-dotenv
+google-generativeai
