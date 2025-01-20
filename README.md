@@ -33,6 +33,25 @@ This Streamlit app provides an interactive user interface to filter data, visual
    pip install -r requirements.txt
    ```
 
+5. Create a 
+
+.env
+
+ file in the root directory and add your Gemini API key:
+   ```plaintext
+   GEMINI_API_KEY=your_gemini_api_key_here
+   ```
+
+## Acquiring a Gemini API Key
+1. Visit the [Gemini API website](https://developers.google.com/gemini).
+2. Sign up or log in to your account.
+3. Follow the instructions to create a new API key.
+4. Copy the API key and add it to your 
+
+.env
+
+ file as shown above.
+
 ## Usage
 1. Run the Streamlit app:
    ```bash
@@ -50,7 +69,8 @@ streamlit-sparql-ui/
 │
 ├── app.py          # Main Streamlit app code
 ├── README.md       # Documentation for the app
-└── requirements.txt # Python dependencies
+├── requirements.txt # Python dependencies
+└── .env            # Environment variables (not tracked by Git)
 ```
 
 ## Requirements
