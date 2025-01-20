@@ -2,31 +2,43 @@
 This Streamlit app provides an interactive user interface to filter data, visualize tables or graphs, and execute SPARQL queries. The app is designed with a simple, user-friendly layout to make it easier to interact with and explore data.
 
 ## Features
-- **Sidebar Filters**: 
-  - Quickly filter data using buttons for categories such as Role, Data Type, Layer Depth, Material, and Company.
-- **Graph/Table Toggle**:
-  - Switch between visual graph representations or tabular data views.
-- **SPARQL Query Editor**:
-  - View and edit SPARQL queries in a dedicated section.
-  - Supports toggling between SPARQL, Visual, and Text views.
-  
+- Interactive filters
+- SPARQL query execution
+- Data visualization
+
 ## Installation
-1. Clone this repository
-2. Navigate to the project directory:
-  ```bash
-  cd streamlit-sparql-ui
-  ```
-3. Install the required dependencies:
-  ```bash
-  pip install -r requirements.txt
-  ```
-*(If `requirements.txt` is not available, simply install Streamlit with: `pip install streamlit`.)*
+1. Clone this repository:
+   ```bash
+   git clone <repository-url>
+   cd streamlit-sparql-ui
+   ```
+
+2. Set up the virtual environment:
+   ```bash
+   python -m venv .venv
+   ```
+
+3. Activate the virtual environment:
+   - On Windows:
+     ```bash
+     .venv\Scripts\activate
+     ```
+   - On macOS/Linux:
+     ```bash
+     source .venv/bin/activate
+     ```
+
+4. Install the required dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
 ## Usage
 1. Run the Streamlit app:
    ```bash
    streamlit run app.py
    ```
+
 2. Open your browser and navigate to:
    ```
    http://localhost:8501
@@ -38,20 +50,46 @@ streamlit-sparql-ui/
 │
 ├── app.py          # Main Streamlit app code
 ├── README.md       # Documentation for the app
-└── requirements.txt # Python dependencies (if available)
+└── requirements.txt # Python dependencies
 ```
-
-## Customization
-Feel free to modify the `app.py` file to:
-- Add more filters to the sidebar.
-- Integrate graph visualizations using libraries like `plotly` or `matplotlib`.
-- Enhance SPARQL query execution with a backend service.
 
 ## Requirements
 - Python 3.7 or later
 - Streamlit
 
-## Future Enhancements
-- Dynamic loading of filters from a backend.
-- Integration with SPARQL endpoints for real-time query execution.
-- Improved graph visualizations and table formatting.
+## Running the WebVOWL Server
+
+### Prerequisites
+- Node.js
+
+### Steps
+1. Download and install Node.js from [Node.js download page](http://nodejs.org/download/).
+
+2. Clone the WebVOWL repository:
+   ```bash
+   git clone https://github.com/VisualDataWeb/WebVOWL.git
+   cd WebVOWL
+   ```
+
+3. Install dependencies and build the project:
+   ```bash
+   npm install
+   ```
+
+4. Build the project:
+   ```bash
+   npm run-script release
+   ```
+
+5. Install `serve` globally:
+   ```bash
+   npm install serve -g
+   ```
+
+6. Run the WebVOWL server:
+   ```bash
+   serve deploy/
+   ```
+
+7. Access WebVOWL:
+   - Open your browser and visit [http://localhost:3000](http://localhost:3000) to use WebVOWL.
