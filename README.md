@@ -43,10 +43,10 @@ This Streamlit app provides an interactive user interface to filter data, visual
    ```
 
 ## Acquiring a Gemini API Key
-1. Visit the [Gemini API website](https://developers.google.com/gemini).
+1. Visit the [Gemini API website](https://ai.google.dev/gemini-api/docs).
 2. Sign up or log in to your account.
 3. Follow the instructions to create a new API key.
-4. Copy the API key and add it to your 
+4. Copy the API key and add it to your `.env` file as shown above.
 
 .env
 
