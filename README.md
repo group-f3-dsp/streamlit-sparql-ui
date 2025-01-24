@@ -1,10 +1,9 @@
 # Streamlit SPARQL Query UI
-
 This Streamlit app provides an interactive user interface to visualize tables or graphs, and execute SPARQL queries. The app is designed with a simple, user-friendly layout to make it easier to interact with and explore data.
 
 ## Features
-- SPARQL query execution
 - Data visualization
+- SPARQL query execution
 - Chat interface aware of the current SPARQL query
 - Integration with WebVOWL for visualizing ontologies
 
