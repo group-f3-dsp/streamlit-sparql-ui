@@ -1,0 +1,1013 @@
+{
+    "_comment": "Created with OWL2VOWL (version 0.3.7), http://vowl.visualdataweb.org",
+    "header": {
+        "languages": [
+            "undefined"
+        ],
+        "baseIris": [
+            "http://purl.org/facsimile/datamodel",
+            "http://www.w3.org/2000/01/rdf-schema",
+            "http://purl.org/facsimile/example",
+            "http://www.w3.org/2001/XMLSchema"
+        ],
+        "prefixList": {
+            "owl": "http://www.w3.org/2002/07/owl#",
+            "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+            "datamodel": "http://purl.org/facsimile/datamodel#",
+            "xsd": "http://www.w3.org/2001/XMLSchema#",
+            "": "http://purl.org/facsimile/example",
+            "xml": "http://www.w3.org/XML/1998/namespace",
+            "example": "http://purl.org/facsimile/example#",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#"
+        },
+        "iri": "http://purl.org/facsimile/example"
+    },
+    "namespace": [],
+    "class": [
+        {
+            "id": "0",
+            "type": "owl:Class"
+        },
+        {
+            "id": "8",
+            "type": "owl:Class"
+        },
+        {
+            "id": "9",
+            "type": "owl:Class"
+        },
+        {
+            "id": "7",
+            "type": "rdfs:Literal"
+        },
+        {
+            "id": "10",
+            "type": "rdfs:Literal"
+        },
+        {
+            "id": "11",
+            "type": "rdfs:Literal"
+        },
+        {
+            "id": "12",
+            "type": "owl:Class"
+        },
+        {
+            "id": "14",
+            "type": "rdfs:Literal"
+        },
+        {
+            "id": "20",
+            "type": "owl:Class"
+        },
+        {
+            "id": "19",
+            "type": "owl:Class"
+        },
+        {
+            "id": "22",
+            "type": "owl:Class"
+        },
+        {
+            "id": "13",
+            "type": "owl:Class"
+        },
+        {
+            "id": "6",
+            "type": "owl:Thing"
+        },
+        {
+            "id": "23",
+            "type": "rdfs:Literal"
+        },
+        {
+            "id": "25",
+            "type": "owl:Class"
+        },
+        {
+            "id": "29",
+            "type": "owl:Class"
+        },
+        {
+            "id": "1",
+            "type": "owl:Class"
+        },
+        {
+            "id": "2",
+            "type": "owl:Class"
+        },
+        {
+            "id": "34",
+            "type": "owl:Class"
+        },
+        {
+            "id": "3",
+            "type": "owl:Class"
+        },
+        {
+            "id": "21",
+            "type": "owl:Class"
+        },
+        {
+            "id": "31",
+            "type": "owl:Class"
+        },
+        {
+            "id": "35",
+            "type": "owl:Class"
+        },
+        {
+            "id": "4",
+            "type": "owl:Class"
+        }
+    ],
+    "classAttribute": [
+        {
+            "iri": "http://purl.org/facsimile/example#ListValue",
+            "baseIri": "http://purl.org/facsimile/example",
+            "instances": 0,
+            "label": {
+                "IRI-based": "ListValue"
+            },
+            "subClasses": [
+                "2",
+                "3",
+                "4"
+            ],
+            "id": "0",
+            "superClasses": [
+                "1"
+            ]
+        },
+        {
+            "iri": "http://purl.org/facsimile/example#StringValue",
+            "baseIri": "http://purl.org/facsimile/example",
+            "instances": 0,
+            "label": {
+                "IRI-based": "StringValue"
+            },
+            "id": "8",
+            "superClasses": [
+                "1"
+            ]
+        },
+        {
+            "iri": "http://purl.org/facsimile/datamodel#Form",
+            "baseIri": "http://purl.org/facsimile/datamodel",
+            "instances": 0,
+            "label": {
+                "IRI-based": "Form"
+            },
+            "individuals": [
+                {
+                    "iri": "http://purl.org/facsimile/example#user_info_form",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "user_info_form"
+                    }
+                }
+            ],
+            "attributes": [
+                "external"
+            ],
+            "id": "9"
+        },
+        {
+            "iri": "http://www.w3.org/2000/01/rdf-schema#Literal",
+            "id": "7",
+            "label": {
+                "IRI-based": "Literal",
+                "undefined": "Literal"
+            }
+        },
+        {
+            "iri": "http://www.w3.org/2000/01/rdf-schema#Literal",
+            "id": "10",
+            "label": {
+                "IRI-based": "Literal",
+                "undefined": "Literal"
+            }
+        },
+        {
+            "iri": "http://www.w3.org/2000/01/rdf-schema#Literal",
+            "id": "11",
+            "label": {
+                "IRI-based": "Literal",
+                "undefined": "Literal"
+            }
+        },
+        {
+            "iri": "http://purl.org/facsimile/example#UserInterface",
+            "baseIri": "http://purl.org/facsimile/example",
+            "instances": 0,
+            "label": {
+                "IRI-based": "UserInterface"
+            },
+            "individuals": [
+                {
+                    "iri": "http://purl.org/facsimile/example#user_interface",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "user_interface"
+                    }
+                }
+            ],
+            "id": "12",
+            "superClasses": [
+                "13"
+            ]
+        },
+        {
+            "iri": "http://www.w3.org/2000/01/rdf-schema#Literal",
+            "id": "14",
+            "label": {
+                "IRI-based": "Literal",
+                "undefined": "Literal"
+            }
+        },
+        {
+            "iri": "http://purl.org/facsimile/example#Answer",
+            "baseIri": "http://purl.org/facsimile/example",
+            "instances": 0,
+            "label": {
+                "IRI-based": "Answer"
+            },
+            "id": "20",
+            "superClasses": [
+                "21"
+            ]
+        },
+        {
+            "iri": "http://purl.org/facsimile/example#Weather",
+            "baseIri": "http://purl.org/facsimile/example",
+            "instances": 0,
+            "label": {
+                "IRI-based": "Weather"
+            },
+            "individuals": [
+                {
+                    "iri": "http://purl.org/facsimile/example#weather",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "weather"
+                    }
+                }
+            ],
+            "id": "19",
+            "superClasses": [
+                "13"
+            ]
+        },
+        {
+            "iri": "http://purl.org/facsimile/example#FormGenerationTool",
+            "baseIri": "http://purl.org/facsimile/example",
+            "instances": 0,
+            "label": {
+                "IRI-based": "FormGenerationTool"
+            },
+            "individuals": [
+                {
+                    "iri": "http://purl.org/facsimile/example#form_generation_tool",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "form_generation_tool"
+                    }
+                }
+            ],
+            "id": "22",
+            "superClasses": [
+                "13"
+            ]
+        },
+        {
+            "iri": "http://purl.org/facsimile/datamodel#DataElementDescription",
+            "baseIri": "http://purl.org/facsimile/datamodel",
+            "instances": 0,
+            "label": {
+                "IRI-based": "DataElementDescription"
+            },
+            "subClasses": [
+                "19",
+                "22",
+                "12"
+            ],
+            "attributes": [
+                "external"
+            ],
+            "id": "13"
+        },
+        {
+            "iri": "http://www.w3.org/2002/07/owl#Thing",
+            "baseIri": "http://owl2vowl.de",
+            "id": "6",
+            "label": {
+                "undefined": "Thing"
+            }
+        },
+        {
+            "iri": "http://www.w3.org/2000/01/rdf-schema#Literal",
+            "id": "23",
+            "label": {
+                "IRI-based": "Literal",
+                "undefined": "Literal"
+            }
+        },
+        {
+            "iri": "http://purl.org/facsimile/example#UserInformation",
+            "baseIri": "http://purl.org/facsimile/example",
+            "instances": 0,
+            "label": {
+                "IRI-based": "UserInformation"
+            },
+            "id": "25",
+            "superClasses": [
+                "21"
+            ]
+        },
+        {
+            "iri": "http://purl.org/facsimile/datamodel#Question",
+            "baseIri": "http://purl.org/facsimile/datamodel",
+            "instances": 0,
+            "label": {
+                "IRI-based": "Question"
+            },
+            "individuals": [
+                {
+                    "iri": "http://purl.org/facsimile/example#question_s1_q1_1",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "question_s1_q1_1"
+                    }
+                },
+                {
+                    "iri": "http://purl.org/facsimile/example#question_s1_q2",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "question_s1_q2"
+                    }
+                },
+                {
+                    "iri": "http://purl.org/facsimile/example#question_s1_q1",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "question_s1_q1"
+                    }
+                },
+                {
+                    "iri": "http://purl.org/facsimile/example#question_s2_q1_1",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "question_s2_q1_1"
+                    }
+                },
+                {
+                    "iri": "http://purl.org/facsimile/example#question_s1_q2_1_1",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "question_s1_q2_1_1"
+                    }
+                },
+                {
+                    "iri": "http://purl.org/facsimile/example#question_s2_q2_1",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "question_s2_q2_1"
+                    }
+                },
+                {
+                    "iri": "http://purl.org/facsimile/example#question_s2_q1",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "question_s2_q1"
+                    }
+                },
+                {
+                    "iri": "http://purl.org/facsimile/example#question_s2_q2",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "question_s2_q2"
+                    }
+                },
+                {
+                    "iri": "http://purl.org/facsimile/example#question_s2_q3",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "question_s2_q3"
+                    }
+                },
+                {
+                    "iri": "http://purl.org/facsimile/example#question_s1_q2_1",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "question_s1_q2_1"
+                    }
+                }
+            ],
+            "attributes": [
+                "external"
+            ],
+            "id": "29"
+        },
+        {
+            "iri": "http://purl.org/facsimile/datamodel#DataElementValue",
+            "baseIri": "http://purl.org/facsimile/datamodel",
+            "instances": 0,
+            "label": {
+                "IRI-based": "DataElementValue"
+            },
+            "subClasses": [
+                "0",
+                "8",
+                "31"
+            ],
+            "attributes": [
+                "external"
+            ],
+            "id": "1"
+        },
+        {
+            "iri": "http://purl.org/facsimile/example#SatisfactionValue",
+            "baseIri": "http://purl.org/facsimile/example",
+            "instances": 0,
+            "label": {
+                "IRI-based": "SatisfactionValue"
+            },
+            "individuals": [
+                {
+                    "iri": "http://purl.org/facsimile/example#mildly_satisfied",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "mildly_satisfied",
+                        "undefined": "Mildly satisfied"
+                    }
+                },
+                {
+                    "iri": "http://purl.org/facsimile/example#not_satisfied",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "not_satisfied",
+                        "undefined": "Not satisfied"
+                    }
+                },
+                {
+                    "iri": "http://purl.org/facsimile/example#fairly_satisfied",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "fairly_satisfied",
+                        "undefined": "Fairly satisfied"
+                    }
+                },
+                {
+                    "iri": "http://purl.org/facsimile/example#satisfied",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "satisfied",
+                        "undefined": "Satisfied"
+                    }
+                }
+            ],
+            "id": "2",
+            "superClasses": [
+                "0"
+            ]
+        },
+        {
+            "iri": "http://purl.org/facsimile/example#UserInfo",
+            "baseIri": "http://purl.org/facsimile/example",
+            "instances": 0,
+            "label": {
+                "IRI-based": "UserInfo"
+            },
+            "individuals": [
+                {
+                    "iri": "http://purl.org/facsimile/example#user_details",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "user_details"
+                    }
+                }
+            ],
+            "id": "34",
+            "superClasses": [
+                "35"
+            ]
+        },
+        {
+            "iri": "http://purl.org/facsimile/example#AestheticsValue",
+            "baseIri": "http://purl.org/facsimile/example",
+            "instances": 0,
+            "label": {
+                "IRI-based": "AestheticsValue"
+            },
+            "individuals": [
+                {
+                    "iri": "http://purl.org/facsimile/example#pretty_ugly",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "pretty_ugly",
+                        "undefined": "Pretty ugly"
+                    }
+                },
+                {
+                    "iri": "http://purl.org/facsimile/example#pretty",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "pretty",
+                        "undefined": "Pretty"
+                    }
+                },
+                {
+                    "iri": "http://purl.org/facsimile/example#ok",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "ok",
+                        "undefined": "Just about Ok"
+                    }
+                },
+                {
+                    "iri": "http://purl.org/facsimile/example#ugly",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "ugly",
+                        "undefined": "Plain ugly"
+                    }
+                }
+            ],
+            "id": "3",
+            "superClasses": [
+                "0"
+            ]
+        },
+        {
+            "iri": "http://purl.org/facsimile/datamodel#Data",
+            "baseIri": "http://purl.org/facsimile/datamodel",
+            "instances": 0,
+            "label": {
+                "IRI-based": "Data"
+            },
+            "subClasses": [
+                "20",
+                "25"
+            ],
+            "attributes": [
+                "external"
+            ],
+            "id": "21"
+        },
+        {
+            "iri": "http://purl.org/facsimile/example#BooleanValue",
+            "baseIri": "http://purl.org/facsimile/example",
+            "instances": 0,
+            "label": {
+                "IRI-based": "BooleanValue"
+            },
+            "individuals": [
+                {
+                    "iri": "http://purl.org/facsimile/example#No",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "No"
+                    }
+                },
+                {
+                    "iri": "http://purl.org/facsimile/example#Yes",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "Yes"
+                    }
+                }
+            ],
+            "id": "31",
+            "superClasses": [
+                "1"
+            ]
+        },
+        {
+            "iri": "http://purl.org/facsimile/datamodel#Section",
+            "baseIri": "http://purl.org/facsimile/datamodel",
+            "instances": 0,
+            "label": {
+                "IRI-based": "Section"
+            },
+            "individuals": [
+                {
+                    "iri": "http://purl.org/facsimile/example#section_2",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "section_2"
+                    }
+                },
+                {
+                    "iri": "http://purl.org/facsimile/example#section_1",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "section_1"
+                    }
+                }
+            ],
+            "subClasses": [
+                "34"
+            ],
+            "attributes": [
+                "external"
+            ],
+            "id": "35"
+        },
+        {
+            "iri": "http://purl.org/facsimile/example#EaseOfUseValue",
+            "baseIri": "http://purl.org/facsimile/example",
+            "instances": 0,
+            "label": {
+                "IRI-based": "EaseOfUseValue"
+            },
+            "individuals": [
+                {
+                    "iri": "http://purl.org/facsimile/example#very_easy",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "very_easy",
+                        "undefined": "Very easy"
+                    }
+                },
+                {
+                    "iri": "http://purl.org/facsimile/example#hard",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "hard",
+                        "undefined": "Hard"
+                    }
+                },
+                {
+                    "iri": "http://purl.org/facsimile/example#easy",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "easy",
+                        "undefined": "Easy"
+                    }
+                },
+                {
+                    "iri": "http://purl.org/facsimile/example#too_easy",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "too_easy",
+                        "undefined": "Too easy"
+                    }
+                },
+                {
+                    "iri": "http://purl.org/facsimile/example#medium",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "medium",
+                        "undefined": "Medium"
+                    }
+                },
+                {
+                    "iri": "http://purl.org/facsimile/example#very_hard",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "very_hard",
+                        "undefined": "Very hard"
+                    }
+                },
+                {
+                    "iri": "http://purl.org/facsimile/example#too_hard",
+                    "baseIri": "http://purl.org/facsimile/example",
+                    "labels": {
+                        "IRI-based": "too_hard",
+                        "undefined": "Too hard"
+                    }
+                }
+            ],
+            "id": "4",
+            "superClasses": [
+                "0"
+            ]
+        }
+    ],
+    "property": [
+        {
+            "id": "5",
+            "type": "owl:datatypeProperty"
+        },
+        {
+            "id": "15",
+            "type": "rdfs:SubClassOf"
+        },
+        {
+            "id": "16",
+            "type": "rdfs:SubClassOf"
+        },
+        {
+            "id": "17",
+            "type": "rdfs:SubClassOf"
+        },
+        {
+            "id": "18",
+            "type": "rdfs:SubClassOf"
+        },
+        {
+            "id": "24",
+            "type": "owl:objectProperty"
+        },
+        {
+            "id": "26",
+            "type": "owl:objectProperty"
+        },
+        {
+            "id": "27",
+            "type": "owl:datatypeProperty"
+        },
+        {
+            "id": "28",
+            "type": "owl:datatypeProperty"
+        },
+        {
+            "id": "30",
+            "type": "owl:objectProperty"
+        },
+        {
+            "id": "32",
+            "type": "owl:datatypeProperty"
+        },
+        {
+            "id": "33",
+            "type": "rdfs:SubClassOf"
+        },
+        {
+            "id": "36",
+            "type": "rdfs:SubClassOf"
+        },
+        {
+            "id": "37",
+            "type": "rdfs:SubClassOf"
+        },
+        {
+            "id": "38",
+            "type": "rdfs:SubClassOf"
+        },
+        {
+            "id": "39",
+            "type": "rdfs:SubClassOf"
+        },
+        {
+            "id": "40",
+            "type": "rdfs:SubClassOf"
+        },
+        {
+            "id": "41",
+            "type": "owl:datatypeProperty"
+        },
+        {
+            "id": "42",
+            "type": "owl:objectProperty"
+        },
+        {
+            "id": "43",
+            "type": "rdfs:SubClassOf"
+        },
+        {
+            "id": "44",
+            "type": "rdfs:SubClassOf"
+        }
+    ],
+    "propertyAttribute": [
+        {
+            "iri": "http://purl.org/facsimile/datamodel#hasHeading",
+            "baseIri": "http://purl.org/facsimile/datamodel",
+            "range": "7",
+            "label": {
+                "IRI-based": "hasHeading"
+            },
+            "domain": "6",
+            "attributes": [
+                "external",
+                "datatype"
+            ],
+            "id": "5"
+        },
+        {
+            "range": "0",
+            "domain": "2",
+            "attributes": [
+                "object",
+                "anonymous"
+            ],
+            "id": "15"
+        },
+        {
+            "range": "0",
+            "domain": "3",
+            "attributes": [
+                "object",
+                "anonymous"
+            ],
+            "id": "16"
+        },
+        {
+            "range": "0",
+            "domain": "4",
+            "attributes": [
+                "object",
+                "anonymous"
+            ],
+            "id": "17"
+        },
+        {
+            "range": "13",
+            "domain": "19",
+            "attributes": [
+                "object",
+                "anonymous"
+            ],
+            "id": "18"
+        },
+        {
+            "iri": "http://purl.org/facsimile/datamodel#hasValue",
+            "baseIri": "http://purl.org/facsimile/datamodel",
+            "range": "6",
+            "label": {
+                "IRI-based": "hasValue"
+            },
+            "domain": "6",
+            "attributes": [
+                "external",
+                "object"
+            ],
+            "id": "24"
+        },
+        {
+            "iri": "http://purl.org/facsimile/example#hasCriteria",
+            "baseIri": "http://purl.org/facsimile/example",
+            "range": "6",
+            "label": {
+                "IRI-based": "hasCriteria"
+            },
+            "domain": "6",
+            "attributes": [
+                "object"
+            ],
+            "id": "26"
+        },
+        {
+            "iri": "http://purl.org/facsimile/datamodel#hasName",
+            "baseIri": "http://purl.org/facsimile/datamodel",
+            "range": "14",
+            "label": {
+                "IRI-based": "hasName"
+            },
+            "domain": "6",
+            "attributes": [
+                "external",
+                "datatype"
+            ],
+            "id": "27"
+        },
+        {
+            "iri": "http://purl.org/facsimile/example#hasUserName",
+            "baseIri": "http://purl.org/facsimile/example",
+            "range": "10",
+            "label": {
+                "IRI-based": "hasUserName"
+            },
+            "domain": "6",
+            "comment": {
+                "undefined": "User name"
+            },
+            "attributes": [
+                "datatype"
+            ],
+            "id": "28"
+        },
+        {
+            "iri": "http://purl.org/facsimile/datamodel#hasFocus",
+            "baseIri": "http://purl.org/facsimile/datamodel",
+            "range": "6",
+            "label": {
+                "IRI-based": "hasFocus"
+            },
+            "domain": "6",
+            "attributes": [
+                "external",
+                "object"
+            ],
+            "id": "30"
+        },
+        {
+            "iri": "http://purl.org/facsimile/example#hasID",
+            "baseIri": "http://purl.org/facsimile/example",
+            "range": "23",
+            "label": {
+                "IRI-based": "hasID"
+            },
+            "domain": "6",
+            "comment": {
+                "undefined": "Passport number"
+            },
+            "attributes": [
+                "functional",
+                "datatype"
+            ],
+            "id": "32"
+        },
+        {
+            "range": "35",
+            "domain": "34",
+            "attributes": [
+                "object",
+                "anonymous"
+            ],
+            "id": "33"
+        },
+        {
+            "range": "1",
+            "domain": "31",
+            "attributes": [
+                "object",
+                "anonymous"
+            ],
+            "id": "36"
+        },
+        {
+            "range": "1",
+            "domain": "8",
+            "attributes": [
+                "object",
+                "anonymous"
+            ],
+            "id": "37"
+        },
+        {
+            "range": "21",
+            "domain": "25",
+            "attributes": [
+                "object",
+                "anonymous"
+            ],
+            "id": "38"
+        },
+        {
+            "range": "21",
+            "domain": "20",
+            "attributes": [
+                "object",
+                "anonymous"
+            ],
+            "id": "39"
+        },
+        {
+            "range": "13",
+            "domain": "22",
+            "attributes": [
+                "object",
+                "anonymous"
+            ],
+            "id": "40"
+        },
+        {
+            "iri": "http://purl.org/facsimile/datamodel#hasText",
+            "baseIri": "http://purl.org/facsimile/datamodel",
+            "range": "11",
+            "label": {
+                "IRI-based": "hasText"
+            },
+            "domain": "6",
+            "attributes": [
+                "external",
+                "datatype"
+            ],
+            "id": "41"
+        },
+        {
+            "iri": "http://purl.org/facsimile/datamodel#isAbout",
+            "baseIri": "http://purl.org/facsimile/datamodel",
+            "range": "6",
+            "label": {
+                "IRI-based": "isAbout"
+            },
+            "domain": "6",
+            "attributes": [
+                "external",
+                "object"
+            ],
+            "id": "42"
+        },
+        {
+            "range": "1",
+            "domain": "0",
+            "attributes": [
+                "object",
+                "anonymous"
+            ],
+            "id": "43"
+        },
+        {
+            "range": "13",
+            "domain": "12",
+            "attributes": [
+                "object",
+                "anonymous"
+            ],
+            "id": "44"
+        }
+    ]
+}
