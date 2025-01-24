@@ -132,8 +132,11 @@ def main():
                 response = openai.ChatCompletion.create(
                     model=st.session_state["openai_model"],
                     messages=[
-                        {"role": m["role"], "content": m["content"]}
-                        for m in st.session_state.messages
+                        {"role": "system", "content": f"The current SPARQL query is: {st.session_state['sparql_query']}"},
+                        *[
+                            {"role": m["role"], "content": m["content"]}
+                            for m in st.session_state.messages
+                        ]
                     ]
                 )
                 response_text = response.choices[0].message["content"]
