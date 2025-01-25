@@ -4,4 +4,4 @@ pandas
 rdflib
 SPARQLWrapper
 python-dotenv
-openai
+openai==0.28
