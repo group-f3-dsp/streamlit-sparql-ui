@@ -144,6 +144,11 @@ def main():
                     # Update chat display
                     display_chat()
 
+                # Add a button to reset the chat
+                if st.button("Reset Chat"):
+                    st.session_state.messages = []
+                    display_chat()
+
             with col_right:
                 st.subheader("SPARQL Query Editor")
 
@@ -163,9 +168,10 @@ def main():
                 if 'query_success' in st.session_state and st.session_state['query_success']:
                     query_placeholder.success("SPARQL query ran successfully.")
 
-                # Display the query output below the button
-                if not st.session_state['df'].empty:
-                    st.dataframe(st.session_state['df'], use_container_width=True)
+                # Display the query output below the button in an expansion section
+                with st.expander("Query Results"):
+                    if not st.session_state['df'].empty:
+                        st.dataframe(st.session_state['df'], use_container_width=True)
 
         with tab2:
             st.subheader("Visual Block Builder")
