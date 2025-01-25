@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit_ace as ace
 import pandas as pd
 import openai
 
@@ -155,10 +156,15 @@ def main():
                 # Create a placeholder for the success message
                 query_placeholder = st.empty()
 
-                st.session_state["sparql_query"] = st.text_area(
-                    "Edit your SPARQL query here:",
+                st.session_state["sparql_query"] = ace.st_ace(
                     value=st.session_state["sparql_query"],
-                    height=250
+                    language="sparql",
+                    theme="twilight",       # Choose your preferred theme (twilight, dracula, etc.)
+                    show_gutter=True,
+                    wrap=True,
+                    auto_update=True,
+                    min_lines=15,
+                    key="ace_editor"
                 )
 
                 if st.button("Run Query", key="run_merged_query", on_click=run_query):
