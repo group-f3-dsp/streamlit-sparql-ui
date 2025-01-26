@@ -62,6 +62,9 @@ LIMIT 100
     if 'button_key' not in st.session_state:
         st.session_state['button_key'] = None
 
+    if 'query_executed' not in st.session_state:
+        st.session_state['query_executed'] = False
+
     top_section, bottom_section = st.container(), st.container()
     with top_section:
         tab1, tab2, tab3 = st.tabs(["Combined View", "Table", "WebVOWL"])
@@ -211,11 +214,14 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\n"""
                 st.session_state["sparql_query"] = ace_editor_content
 
                 if st.button("Run Query", key="run_merged_query", on_click=run_query):
-                    pass
+                    st.session_state['query_executed'] = True
 
                 # Display the success message in the placeholder
-                if 'query_success' in st.session_state and st.session_state['query_success']:
-                    query_placeholder.success("SPARQL query ran successfully.")
+                if 'query_executed' in st.session_state and st.session_state['query_executed']:
+                    if 'query_success' in st.session_state and st.session_state['query_success']:
+                        context = extract_context(st.session_state["sparql_query"])
+                        query_placeholder.success(f"{context}")
+                    st.session_state['query_executed'] = False
 
                 # Display the query output below the button in an expansion section
                 with st.expander("Query Results"):
@@ -238,6 +244,18 @@ def run_query():
     except Exception as e:
         st.session_state['query_success'] = False
         st.error(f"Error running SPARQL: {e}")
+
+def extract_context(query):
+    prompt = f"SPARQL query about <blank> ran successfully! for the following SPARQL query: {query}"
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": prompt}
+        ],
+        max_tokens=100
+    )
+    return response.choices[0].message["content"].strip()
 
 if __name__ == "__main__":
     main()
