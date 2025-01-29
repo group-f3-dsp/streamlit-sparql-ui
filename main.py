@@ -6,8 +6,8 @@ import re
 import uuid
 
 from config import AppConfig
-from sparql_utils import run_sparql_query, convert_to_jsonld
-from server_utils import JSONLDServer
+from sparql_utils import run_sparql_query
+# from server_utils import JSONLDServer  # Commented out as it's no longer needed
 from chat_utils import ChatManager
 
 # Set page configuration
@@ -33,14 +33,14 @@ def main():
     if 'df' not in st.session_state:
         st.session_state['df'] = pd.DataFrame()
 
-    if 'jsonld_data' not in st.session_state:
-        st.session_state['jsonld_data'] = ""
+    # if 'jsonld_data' not in st.session_state:  # Commented out as it's no longer needed
+    #     st.session_state['jsonld_data'] = ""
 
-    if 'server' not in st.session_state:
-        st.session_state['server'] = JSONLDServer()
+    # if 'server' not in st.session_state:  # Commented out as it's no longer needed
+    #     st.session_state['server'] = JSONLDServer()
 
-    if 'is_server_running' not in st.session_state:
-        st.session_state['is_server_running'] = False
+    # if 'is_server_running' not in st.session_state:  # Commented out as it's no longer needed
+    #     st.session_state['is_server_running'] = False
 
     if 'sparql_query' not in st.session_state:
         st.session_state['sparql_query'] = """PREFIX dbo: <http://dbpedia.org/ontology/>
@@ -71,10 +71,6 @@ LIMIT 100
 
         webvowl_url = "https://service.tib.eu/webvowl"
 
-        if st.session_state['jsonld_data'] and not st.session_state['is_server_running']:
-            st.session_state['server'].start_server(st.session_state['jsonld_data'])
-            st.session_state['is_server_running'] = True
-
         with tab1:
             col1, col2 = st.columns([0.5, 0.5])
             with col1:
@@ -87,10 +83,7 @@ LIMIT 100
 
             with col2:
                 st.subheader("WebVOWL")
-                if st.session_state['jsonld_data']:
-                    st.components.v1.iframe(webvowl_url, height=600, scrolling=True)
-                else:
-                    st.write("Run a SPARQL query to visualize data in WebVOWL.")
+                st.components.v1.iframe(webvowl_url, height=600, scrolling=True)
 
         with tab2:
             st.subheader("Table")
@@ -102,10 +95,7 @@ LIMIT 100
 
         with tab3:
             st.subheader("WebVOWL")
-            if st.session_state['jsonld_data']:
-                st.components.v1.iframe(webvowl_url, height=600, scrolling=True)
-            else:
-                st.write("Run a SPARQL query to visualize data in WebVOWL.")
+            st.components.v1.iframe(webvowl_url, height=600, scrolling=True)
 
     with bottom_section:
         tab1, tab2 = st.tabs(["Chat and Query Editor", "Visual Block Builder"])
@@ -239,7 +229,7 @@ def run_query():
             AppConfig().sparql_endpoint
         )
         st.session_state["df"] = df
-        st.session_state["jsonld_data"] = convert_to_jsonld(df)
+        # st.session_state["jsonld_data"] = convert_to_jsonld(df)  # Commented out as it's no longer needed
         st.session_state['query_success'] = True
     except Exception as e:
         st.session_state['query_success'] = False
