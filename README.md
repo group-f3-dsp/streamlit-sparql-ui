@@ -57,16 +57,21 @@ This Streamlit app provides an interactive user interface to visualize tables or
 streamlit-sparql-ui/
 │
 ├── .streamlit/       # Streamlit configuration and secrets
+   ├── secrets.toml
+├── archive/          # Directory containing archive code
 ├── data/             # Directory containing ontology and example files
 │   ├── example.owl
 │   ├── example.json
-│   ├── ontology.owl
-│   ├── ontology.json
+│   ├── dbpedia_ontology.owl
+│   ├── dbpedia_ontology.json
 │   └── smallTest.md
 ├── main.py           # Main Streamlit app code
 ├── README.md         # Documentation for the app
 ├── requirements.txt  # Python dependencies
 └── sparql_utils.py   # Utility functions for running SPARQL queries
+└── server_utils.py   # Utility functions
+└── chat_utils.py     # Utility functions for the Gemini chat
+└── config.py         # Configuration file
 ```
 
 ## Requirements
@@ -102,7 +107,7 @@ streamlit-sparql-ui/
    npm install serve -g
    ```
 
-6. Run the WebVOWL server:
+6. Run the WebVOWL server locally:
    ```bash
    serve deploy/
    ```
