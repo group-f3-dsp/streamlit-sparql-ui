@@ -5,3 +5,4 @@ rdflib
 SPARQLWrapper
 python-dotenv
 openai==0.28
+google.generativeai
