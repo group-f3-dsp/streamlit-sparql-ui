@@ -69,7 +69,7 @@ LIMIT 100
     with top_section:
         tab1, tab2, tab3 = st.tabs(["Combined View", "Table", "WebVOWL"])
 
-        webvowl_url = "http://localhost:3000/?url=http://localhost:8000"
+        webvowl_url = "https://service.tib.eu/webvowl"
 
         if st.session_state['jsonld_data'] and not st.session_state['is_server_running']:
             st.session_state['server'].start_server(st.session_state['jsonld_data'])
