@@ -34,10 +34,11 @@ This Streamlit app provides an interactive user interface to visualize tables or
    pip install -r requirements.txt
    ```
 
-5. Set up your OpenAI API key in the Streamlit secrets:
+5. Set up your OpenAI API key and Gemini API key in the Streamlit secrets:
    ```sh
    echo "[secrets]" > .streamlit/secrets.toml
    echo "OPENAI_API_KEY = 'your-openai-api-key'" >> .streamlit/secrets.toml
+   echo "GEMINI_API_KEY = 'your-gemini-api-key'" >> .streamlit/secrets.toml
    ```
 
 ## Usage

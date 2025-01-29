@@ -1,18 +1,16 @@
 import os
-from dotenv import load_dotenv
 import google.generativeai as genai
+import streamlit as st
 
 class AppConfig:
-    def __init__(self, env_file: str = '.env'):
+    def __init__(self):
         """
-        Loads environment variables from a .env file and configures the Gemini API.
+        Loads environment variables from Streamlit secrets and configures the Gemini API.
         """
-        load_dotenv(env_file)
-
-        self.api_key = os.getenv("GEMINI_API_KEY")
-        self.sparql_endpoint = os.getenv("SPARQL_ENDPOINT", "https://dbpedia.org/sparql")
+        self.api_key = st.secrets.get("GEMINI_API_KEY")
+        self.sparql_endpoint = st.secrets.get("SPARQL_ENDPOINT", "https://dbpedia.org/sparql")
 
         if self.api_key:
             genai.configure(api_key=self.api_key)
         else:
-            raise ValueError("Gemini API Key not found in environment variables.")
+            raise ValueError("Gemini API Key not found in Streamlit secrets.")
