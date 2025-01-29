@@ -175,12 +175,40 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\n"""
                     display_chat()
 
                 # Add a button to reset the chat
-                if st.button("Reset Chat"):
+                st.markdown("""
+                    <style>.element-container:has(#button-after) + div button {
+                        background-color: #dc3545 !important;
+                        color: white !important;
+                    }</style>""", unsafe_allow_html=True)
+
+                st.markdown('<span id="button-after"></span>', unsafe_allow_html=True)
+                if st.button("Reset Chat" , key="red", type="primary"):
                     st.session_state.messages = []
                     st.rerun()
 
             with col_right:
-                st.subheader("SPARQL Query Editor")
+                col_query_editor, col_run_button = st.columns([0.8, 0.2])
+                
+                with col_query_editor:
+                    st.subheader("SPARQL Query Editor")
+
+                with col_run_button:
+                    if st.button("▶ Run Query", key="run_merged_query", on_click=run_query):
+                        st.session_state['query_executed'] = True
+
+                    st.markdown(
+                        """
+                        <style>
+                        .stButton button {
+                            background-color: #28a745 !important;
+                            color: white !important;
+                        }
+                        </style>
+                        """,
+                        unsafe_allow_html=True
+                    )
+
+
 
                 # Create a placeholder for the success message
                 query_placeholder = st.empty()
@@ -202,9 +230,6 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\n"""
 
                 # Update the session state with the current content of the editor
                 st.session_state["sparql_query"] = ace_editor_content
-
-                if st.button("Run Query", key="run_merged_query", on_click=run_query):
-                    st.session_state['query_executed'] = True
 
                 # Display the success message in the placeholder
                 if 'query_executed' in st.session_state and st.session_state['query_executed']:
