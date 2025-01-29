@@ -77,9 +77,26 @@ LIMIT 100
                 st.subheader("Table")
                 df = st.session_state['df']
                 if not df.empty:
-                    st.dataframe(df, height=600)  # Set the height to match WebVOWL
-                else:
-                    st.write("No data to show yet. Run a SPARQL query first.")
+                    column_config = {}
+                    for column in df.columns:
+                        # Check if the column contains URLs starting with "http"
+                        if df[column].apply(lambda x: isinstance(x, str) and x.startswith("http")).any():
+                            column_config[column] = st.column_config.LinkColumn(
+                                column,
+                                help=f"Links in the {column} column"
+                            )
+
+                    # Display the DataFrame with clickable links using st.data_editor
+                    if not df.empty:
+                        st.data_editor(
+                            df,
+                            column_config=column_config,
+                            hide_index=False,
+                            key="data_editor_1"  # Unique key for this table
+
+                        )
+                    else:
+                        st.write("No data to show yet. Run a SPARQL query first.")
 
             with col2:
                 st.subheader("WebVOWL")
@@ -87,11 +104,30 @@ LIMIT 100
 
         with tab2:
             st.subheader("Table")
-            df = st.session_state['df']
             if not df.empty:
-                st.dataframe(df, use_container_width=True, height=600)  # Use the full width of the container
-            else:
-                st.write("No data to show yet. Run a SPARQL query first.")
+                    column_config = {}
+                    for column in df.columns:
+                        # Check if the column contains URLs starting with "http"
+                        if df[column].apply(lambda x: isinstance(x, str) and x.startswith("http")).any():
+                            column_config[column] = st.column_config.LinkColumn(
+                                column,
+                                help=f"Links in the {column} column"
+                            )
+
+                    # Display the DataFrame with clickable links using st.data_editor
+                    if not df.empty:
+                        st.data_editor(
+                            df,
+                            column_config=column_config,
+                            hide_index=False,
+                            key="data_editor_2",  # Unique key for this table
+                            use_container_width=True  # Make it take up the whole page width
+
+
+                        )
+                    else:
+                        st.write("No data to show yet. Run a SPARQL query first.")
+
 
         with tab3:
             st.subheader("WebVOWL")
@@ -239,9 +275,27 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\n"""
                     st.session_state['query_executed'] = False
 
                 # Display the query output below the button in an expansion section
+                
+                # Detect columns that contain HTTP URLs and create a LinkColumn for them
+                column_config = {}
+                for column in st.session_state['df'].columns:
+                    # Check if the column contains URLs starting with "http"
+                    if st.session_state['df'][column].apply(lambda x: isinstance(x, str) and x.startswith("http")).any():
+                        column_config[column] = st.column_config.LinkColumn(
+                            column,
+                            help=f"More information on {column}"
+                        )
+
+                # Use `st.data_editor` to display the DataFrame with LinkColumn
                 with st.expander("Query Results"):
                     if not st.session_state['df'].empty:
-                        st.dataframe(st.session_state['df'], use_container_width=True)
+                        st.data_editor(
+                            st.session_state['df'],
+                            column_config=column_config,
+                            hide_index=True
+                        )
+                    else:
+                        st.write("No data to show yet. Run a SPARQL query first.")
 
         with tab2:
             st.subheader("Visual Block Builder")
