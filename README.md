@@ -10,7 +10,7 @@ This Streamlit app provides an interactive user interface to visualize tables or
 ## Installation
 1. Clone this repository:
    ```bash
-   git clone https://github.com/paraskevasleivadaros/streamlit-sparql-ui.git
+   git clone https://github.com/group-f3-dsp/streamlit-sparql-ui.git
    cd streamlit-sparql-ui
    ```
 
