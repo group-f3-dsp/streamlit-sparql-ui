@@ -75,8 +75,9 @@ streamlit-sparql-ui/
 ```
 
 ## Requirements
-- Python 3.7 or later
-- Streamlit
+- Python 3.13.0 or later
+- Streamlit 1.41.1 or later
+- pip version 24.2 or later
 
 ## Running the WebVOWL Server
 
