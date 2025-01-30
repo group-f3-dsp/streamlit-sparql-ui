@@ -214,7 +214,9 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\n"""
                                             st.session_state["sparql_query"] = prefixes + extracted_sparql_query
                                             st.session_state["apply_query"] = True
                                             st.session_state['button_key'] = None
-                                            st.rerun()
+                                            st.session_state['query_executed'] = False
+                                            st.session_state['ace_editor_content'] = st.session_state["sparql_query"]
+                                            st.session_state['update_ace_editor'] = True
 
                 # Function to extract SPARQL query from a message
                 def extract_sparql_query(message):
@@ -295,8 +297,13 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\n"""
                 query_placeholder = st.empty()
 
                 # Use the current query in the session state
-                query_to_display = st.session_state["sparql_query"]
-                # st.write(f"Query to display in editor: {query_to_display}")  # Debugging line
+                if st.session_state.get('update_ace_editor', False):
+                    query_to_display = st.session_state["sparql_query"]
+                    st.session_state['update_ace_editor'] = False
+                    ace_editor_key = str(uuid.uuid4())  # Generate a new unique key
+                else:
+                    query_to_display = st.session_state.get("ace_editor_content", st.session_state["sparql_query"])
+                    ace_editor_key = "ace_editor"
 
                 ace_editor_content = ace.st_ace(
                     value=query_to_display,
@@ -306,11 +313,11 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\n"""
                     wrap=True,
                     auto_update=True,
                     min_lines=15,
-                    key=str(uuid.uuid4())  # Ensure a unique key to force re-render
+                    key=ace_editor_key  # Use the unique key
                 )
 
                 # Update the session state with the current content of the editor
-                st.session_state["sparql_query"] = ace_editor_content
+                st.session_state["ace_editor_content"] = ace_editor_content
 
                 # Display the success message in the placeholder
                 if 'query_executed' in st.session_state and st.session_state['query_executed']:
@@ -349,11 +356,11 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\n"""
 def run_query():
     try:
         df = run_sparql_query(
-            st.session_state["sparql_query"],
+            st.session_state["ace_editor_content"],
             AppConfig().sparql_endpoint
         )
         st.session_state["df"] = df
-        # st.session_state["jsonld_data"] = convert_to_jsonld(df)  # Commented out as it's no longer needed
+        st.session_state["sparql_query"] = st.session_state["ace_editor_content"]
         st.session_state['query_success'] = True
     except Exception as e:
         st.session_state['query_success'] = False
