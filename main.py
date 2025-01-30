@@ -112,7 +112,9 @@ LIMIT 100
     with top_section:
         tab1, tab2, tab3 = st.tabs(["Combined View", "Table", "WebVOWL"])
 
-        webvowl_url = "https://service.tib.eu/webvowl"
+        # webvowl_url = "https://service.tib.eu/webvowl"
+        webvowl_url = "localhost:8080/webvowl"
+
 
         with tab1:
             col1, col2 = st.columns([0.5, 0.5])
@@ -220,7 +222,7 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\n"""
 
                 # Function to extract SPARQL query from a message
                 def extract_sparql_query(message):
-                    match = re.search(r"SELECT.*?WHERE.*?\}", message, re.DOTALL)
+                    match = re.search(r"(PREFIX.*?SELECT.*?WHERE\s*\{.*?\}\s*LIMIT\s*\d+)", message, re.DOTALL)
                     return match.group(0) if match else None
 
                 # Display conversation history
