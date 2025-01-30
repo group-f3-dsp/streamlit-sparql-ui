@@ -14,6 +14,49 @@ from chat_utils import ChatManager
 st.set_page_config(layout="wide")
 
 def main():
+   # Inject custom CSS to remove top padding
+    st.markdown(
+        """
+        <style>
+        /* Remove top padding and margin from the specific st-emotion-cache class */
+        .st-emotion-cache-3a3u1y {
+            padding-top: 0 !important;  /* Remove top padding */
+            margin-top: 0 !important;   /* Remove top margin */
+        }
+
+        /* Optionally reset any top margin for the main container */
+        .stMainBlockContainer {
+            padding-top: 0 !important;  /* Remove top padding */
+            margin-top: 0 !important;   /* Remove top margin */
+        }
+
+        /* Optional: Reset top margin for the entire app */
+        .stApp {
+            margin-top: 0 !important;  /* Remove top margin for the app */
+        }
+        h1 {
+            padding-top: 0 !important;
+            font-size: 30px !important;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+    st.markdown("""
+        <style>
+            #MainMenu, header, footer {visibility: hidden;}
+
+            /* This code gets the first element on the sidebar,
+            and overrides its default styling */
+            section[data-testid="stSidebar"] div:first-child {
+                top: 0;
+                height: 0vh;
+            }
+        </style>
+        """,unsafe_allow_html=True)
+
+
+    # Now you can add your title without extra padding above it
     st.title("SparqlGPT - A Modular Refactor (SPARQL + Chat)")
 
     # Set OpenAI API key from Streamlit secrets
@@ -92,7 +135,9 @@ LIMIT 100
                             df,
                             column_config=column_config,
                             hide_index=False,
+                            height=400,
                             key="data_editor_1"  # Unique key for this table
+
 
                         )
                     else:
@@ -100,7 +145,7 @@ LIMIT 100
 
             with col2:
                 st.subheader("WebVOWL")
-                st.components.v1.iframe(webvowl_url, height=600, scrolling=True)
+                st.components.v1.iframe(webvowl_url, height=400, scrolling=True)
 
         with tab2:
             st.subheader("Table")
