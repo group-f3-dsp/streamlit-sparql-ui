@@ -57,7 +57,7 @@ def main():
 
 
     # Now you can add your title without extra padding above it
-    st.title("SparqlGPT - A Modular Refactor (SPARQL + Chat)")
+    st.title("SparqlGPT - A Modular Refactor")
 
     # Set OpenAI API key from Streamlit secrets
     openai.api_key = st.secrets["OPENAI_API_KEY"]
