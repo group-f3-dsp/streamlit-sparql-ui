@@ -1,6 +1,18 @@
 # Streamlit SPARQL Query UI
 This Streamlit app provides an interactive user interface to visualize tables or graphs, and execute SPARQL queries. The app is designed with a simple, user-friendly layout to make it easier to interact with and explore data.
 
+## Index
+1. [Features](#features)  
+2. [Installation](#installation)  
+3. [Usage](#usage)  
+4. [Project Structure](#project-structure)  
+5. [Requirements](#requirements)  
+6. [Running the WebVOWL Server](#running-the-webvowl-server)  
+7. [Using OWL2VOWL](#using-owl2vowl)  
+8. [Contributing](#contributing)  
+9. [License](#license)  
+10. [Technologies Used](#technologies-used)
+
 ## Features
 - Data visualization
 - SPARQL query execution
@@ -69,15 +81,14 @@ streamlit-sparql-ui/
 ├── README.md         # Documentation for the app
 ├── requirements.txt  # Python dependencies
 └── sparql_utils.py   # Utility functions for running SPARQL queries
-└── server_utils.py   # Utility functions
 └── chat_utils.py     # Utility functions for the Gemini chat
 └── config.py         # Configuration file
 ```
 
 ## Requirements
-- Python 3.13.0 or later
-- Streamlit 1.41.1 or later
-- pip version 24.2 or later
+- [Python](https://python.org/downloads) 3.13.0 or later
+- [Streamlit](https://docs.streamlit.io/get-started/installation) 1.41.1 or later
+- [pip](https://pypi.org/project/pip/) version 24.2 or later
 
 ## Running the WebVOWL Server
 
@@ -85,7 +96,7 @@ streamlit-sparql-ui/
 - Node.js
 
 ### Steps
-1. Download and install Node.js from [Node.js download page](http://nodejs.org/download/)
+1. Download and install Node.js from [Node.js download page](https://nodejs.org/en/download))
 
 2. Clone the WebVOWL repository:
    ```bash
