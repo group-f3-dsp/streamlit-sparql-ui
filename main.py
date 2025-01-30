@@ -14,7 +14,7 @@ from chat_utils import ChatManager
 st.set_page_config(layout="wide")
 
 def main():
-   # Inject custom CSS to remove top padding
+    # Inject custom CSS to remove top padding
     st.markdown(
         """
         <style>
@@ -37,6 +37,17 @@ def main():
         h1 {
             padding-top: 0 !important;
             font-size: 30px !important;
+        }
+
+        /* Add margin and padding to the top of the SPARQL Ace editor box */
+        .ace_editor {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+        }
+
+        /* Remove space between the editor box and the subheader */
+        .stSubheader {
+            margin-bottom: 0 !important;
         }
         </style>
         """,
@@ -195,30 +206,28 @@ LIMIT 100
                 # Function to display chat messages
                 def display_chat():
                     with chat_placeholder.container():
-                        for i, msg in enumerate(st.session_state.messages):
-                            with st.chat_message(msg["role"]):
-                                st.markdown(msg["content"])
-                                # Check if the message contains a SPARQL query
-                                if msg["role"] == "assistant":
-                                    extracted_sparql_query = extract_sparql_query(msg["content"])
-                                    # st.write(f"Extracted SPARQL Query: {extracted_sparql_query}")  # Debugging line
-                                    if extracted_sparql_query:
-                                        # st.write("Condition 'if extracted_sparql_query:' is True")  # Debugging line
-                                        if st.session_state['button_key'] is None:
-                                            st.session_state['button_key'] = f"apply_{i}_{msg['role']}_{uuid.uuid4()}"
-                                        # st.write(f"Button Key: {st.session_state['button_key']}")  # Debugging line
-                                        button_clicked = st.button("Apply this query", key=st.session_state['button_key'])
-                                        # st.write(f"Button clicked: {button_clicked}")  # Debugging line
-                                        if button_clicked:
-                                            # st.write("Button 'Apply this query' clicked")  # Debugging line
-                                            prefixes = """PREFIX dbo: <http://dbpedia.org/ontology/>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\n"""
-                                            st.session_state["sparql_query"] = prefixes + extracted_sparql_query
-                                            st.session_state["apply_query"] = True
-                                            st.session_state['button_key'] = None
-                                            st.session_state['query_executed'] = False
-                                            st.session_state['ace_editor_content'] = st.session_state["sparql_query"]
-                                            st.session_state['update_ace_editor'] = True
+                        with st.container(height=400, border=None,):
+                            for i, msg in enumerate(st.session_state.messages):
+                                with st.chat_message(msg["role"]):
+                                    st.markdown(msg["content"])
+                                    # Check if the message contains a SPARQL query and is the last message
+                                    if msg["role"] == "assistant" and i == len(st.session_state.messages) - 1:
+                                        extracted_sparql_query = extract_sparql_query(msg["content"])
+                                        if extracted_sparql_query:
+                                            if st.session_state['button_key'] is None:
+                                                st.session_state['button_key'] = f"apply_{i}_{msg['role']}_{uuid.uuid4()}"
+                                            button_clicked = st.button("Apply this query", key=st.session_state['button_key'])
+                                            if button_clicked:
+                                                prefixes = """PREFIX dbo: <http://dbpedia.org/ontology/>
+    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\n"""
+                                                st.session_state["sparql_query"] = prefixes + extracted_sparql_query
+                                                st.session_state["apply_query"] = True
+                                                st.session_state['button_key'] = None
+                                                st.session_state['query_executed'] = False
+                                                st.session_state['ace_editor_content'] = st.session_state["sparql_query"]
+                                                st.session_state['update_ace_editor'] = True
+                                                st.session_state['reload'] = True
+                                                st.experimental_set_query_params(reload=st.session_state['reload'])
 
                 # Function to extract SPARQL query from a message
                 def extract_sparql_query(message):
@@ -233,8 +242,13 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\n"""
                     # st.write(f"Updated SPARQL Query: {st.session_state['sparql_query']}")  # Debugging line
                     st.session_state["apply_query"] = False
 
+                # # Reload the page if needed
+                # if st.session_state.get('reload', False):
+                #     st.session_state['reload'] = False
+                #     st.experimental_set_query_params(reload=st.session_state['reload'])
+
                 # Accept user input
-                if prompt := st.chat_input("Ask for a SPARQL query or data insights...", key="chat_input_left"):
+                if prompt := st.chat_input("Ask for a SPARQL query in the code block format or data insights...", key="chat_input_left"):
                     # Add user message to chat history
                     st.session_state.messages.append({"role": "user", "content": prompt})
                     # Reset button key for new query
@@ -261,13 +275,14 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\n"""
 
                 # Add a button to reset the chat
                 st.markdown("""
-                    <style>.element-container:has(#button-after) + div button {
+                    <style>.element-container:has(#button) + div button {
                         background-color: #dc3545 !important;
                         color: white !important;
                     }</style>""", unsafe_allow_html=True)
 
-                st.markdown('<span id="button-after"></span>', unsafe_allow_html=True)
+                st.markdown('<span id="button"></span>', unsafe_allow_html=True)
                 if st.button("Reset Chat" , key="red", type="primary"):
+                    st.experimental_set_query_params(reload=True)
                     st.session_state.messages = []
                     st.rerun()
 
