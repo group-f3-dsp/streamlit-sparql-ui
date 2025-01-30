@@ -9,9 +9,10 @@ This Streamlit app provides an interactive user interface to visualize tables or
 5. [Requirements](#requirements)  
 6. [Running the WebVOWL Server](#running-the-webvowl-server)  
 7. [Using OWL2VOWL](#using-owl2vowl)  
-8. [Contributing](#contributing)  
-9. [License](#license)  
-10. [Technologies Used](#technologies-used)
+8. [Demo & Teaser Videos](#demo--teaser-videos)  
+9. [Contributing](#contributing)  
+10. [License](#license)  
+11. [Technologies Used](#technologies-used)  
 
 ## Features
 - Data visualization
@@ -153,6 +154,10 @@ With OWL2VOWL, you can convert an OWL file to JSON. Follow these steps to set up
         ```
 
     Replace `path/to/your/file.owl` with the actual path to your OWL file.
+
+## Demo & Teaser Videos  
+- **Demo:** [Watch on YouTube](https://www.youtube.com/watch?v=vCWAt28lWco)  
+- **Teaser Video:** [Watch on YouTube](https://www.youtube.com/watch?v=54dnWl3IyiM)
 
 ## Contributing
 
