@@ -222,7 +222,7 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\n"""
 
                 # Function to extract SPARQL query from a message
                 def extract_sparql_query(message):
-                    match = re.search(r"(PREFIX.*?SELECT.*?WHERE\s*\{.*?\}\s*LIMIT\s*\d+)", message, re.DOTALL)
+                    match = re.search(r"SELECT.*?WHERE\s*\{.*?\}\s*(LIMIT\s*\d+)?", message, re.DOTALL)
                     return match.group(0) if match else None
 
                 # Display conversation history
