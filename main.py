@@ -4,12 +4,18 @@ import pandas as pd
 import openai
 import re
 import uuid
+import warnings
+import logging
 
 from config import AppConfig
 from sparql_utils import run_sparql_query
 # from server_utils import JSONLDServer  # Commented out as it's no longer needed
 from chat_utils import ChatManager
 from endpoints import SPARQL_ENDPOINTS
+
+# Suppress specific warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning, message=".*st.experimental_set_query_params.*")
+logging.getLogger('streamlit').setLevel(logging.ERROR)
 
 # Set page configuration
 st.set_page_config(layout="wide")
