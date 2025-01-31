@@ -130,8 +130,8 @@ LIMIT 100
     with top_section:
         tab1, tab2, tab3 = st.tabs(["Combined View", "Table", "WebVOWL"])
 
-        # webvowl_url = "https://service.tib.eu/webvowl"
-        webvowl_url = "localhost:8080/webvowl"
+        webvowl_url = "https://service.tib.eu/webvowl"
+        # webvowl_url = "localhost:8080/webvowl"
 
 
         with tab1:
