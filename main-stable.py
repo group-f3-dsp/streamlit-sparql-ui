@@ -6,15 +6,69 @@ import re
 import uuid
 
 from config import AppConfig
-from sparql_utils import run_sparql_query, convert_to_jsonld
-from server_utils import JSONLDServer
+from sparql_utils import run_sparql_query
+# from server_utils import JSONLDServer  # Commented out as it's no longer needed
 from chat_utils import ChatManager
 
 # Set page configuration
 st.set_page_config(layout="wide")
 
 def main():
-    st.title("SparqlGPT - A Modular Refactor (SPARQL + Chat)")
+    # Inject custom CSS to remove top padding
+    st.markdown(
+        """
+        <style>
+        /* Remove top padding and margin from the specific st-emotion-cache class */
+        .st-emotion-cache-3a3u1y {
+            padding-top: 0 !important;  /* Remove top padding */
+            margin-top: 0 !important;   /* Remove top margin */
+        }
+
+        /* Optionally reset any top margin for the main container */
+        .stMainBlockContainer {
+            padding-top: 0 !important;  /* Remove top padding */
+            margin-top: 0 !important;   /* Remove top margin */
+        }
+
+        /* Optional: Reset top margin for the entire app */
+        .stApp {
+            margin-top: 0 !important;  /* Remove top margin for the app */
+        }
+        h1 {
+            padding-top: 0 !important;
+            font-size: 30px !important;
+        }
+
+        /* Add margin and padding to the top of the SPARQL Ace editor box */
+        .ace_editor {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+        }
+
+        /* Remove space between the editor box and the subheader */
+        .stSubheader {
+            margin-bottom: 0 !important;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+    st.markdown("""
+        <style>
+            #MainMenu, header, footer {visibility: hidden;}
+
+            /* This code gets the first element on the sidebar,
+            and overrides its default styling */
+            section[data-testid="stSidebar"] div:first-child {
+                top: 0;
+                height: 0vh;
+            }
+        </style>
+        """,unsafe_allow_html=True)
+
+
+    # Now you can add your title without extra padding above it
+    st.title("SparqlGPT - A Modular Refactor")
 
     # Set OpenAI API key from Streamlit secrets
     openai.api_key = st.secrets["OPENAI_API_KEY"]
@@ -33,14 +87,14 @@ def main():
     if 'df' not in st.session_state:
         st.session_state['df'] = pd.DataFrame()
 
-    if 'jsonld_data' not in st.session_state:
-        st.session_state['jsonld_data'] = ""
+    # if 'jsonld_data' not in st.session_state:  # Commented out as it's no longer needed
+    #     st.session_state['jsonld_data'] = ""
 
-    if 'server' not in st.session_state:
-        st.session_state['server'] = JSONLDServer()
+    # if 'server' not in st.session_state:  # Commented out as it's no longer needed
+    #     st.session_state['server'] = JSONLDServer()
 
-    if 'is_server_running' not in st.session_state:
-        st.session_state['is_server_running'] = False
+    # if 'is_server_running' not in st.session_state:  # Commented out as it's no longer needed
+    #     st.session_state['is_server_running'] = False
 
     if 'sparql_query' not in st.session_state:
         st.session_state['sparql_query'] = """PREFIX dbo: <http://dbpedia.org/ontology/>
@@ -69,11 +123,9 @@ LIMIT 100
     with top_section:
         tab1, tab2, tab3 = st.tabs(["Combined View", "Table", "WebVOWL"])
 
-        webvowl_url = "http://localhost:3000/?url=http://localhost:8000"
+        # webvowl_url = "https://service.tib.eu/webvowl"
+        webvowl_url = "localhost:8080/webvowl"
 
-        if st.session_state['jsonld_data'] and not st.session_state['is_server_running']:
-            st.session_state['server'].start_server(st.session_state['jsonld_data'])
-            st.session_state['is_server_running'] = True
 
         with tab1:
             col1, col2 = st.columns([0.5, 0.5])
@@ -81,31 +133,63 @@ LIMIT 100
                 st.subheader("Table")
                 df = st.session_state['df']
                 if not df.empty:
-                    st.dataframe(df, height=600)  # Set the height to match WebVOWL
-                else:
-                    st.write("No data to show yet. Run a SPARQL query first.")
+                    column_config = {}
+                    for column in df.columns:
+                        # Check if the column contains URLs starting with "http"
+                        if df[column].apply(lambda x: isinstance(x, str) and x.startswith("http")).any():
+                            column_config[column] = st.column_config.LinkColumn(
+                                column,
+                                help=f"Links in the {column} column"
+                            )
+
+                    # Display the DataFrame with clickable links using st.data_editor
+                    if not df.empty:
+                        st.data_editor(
+                            df,
+                            column_config=column_config,
+                            hide_index=False,
+                            height=400,
+                            key="data_editor_1"  # Unique key for this table
+
+
+                        )
+                    else:
+                        st.write("No data to show yet. Run a SPARQL query first.")
 
             with col2:
                 st.subheader("WebVOWL")
-                if st.session_state['jsonld_data']:
-                    st.components.v1.iframe(webvowl_url, height=600, scrolling=True)
-                else:
-                    st.write("Run a SPARQL query to visualize data in WebVOWL.")
+                st.components.v1.iframe(webvowl_url, height=400, scrolling=True)
 
         with tab2:
             st.subheader("Table")
-            df = st.session_state['df']
             if not df.empty:
-                st.dataframe(df, use_container_width=True, height=600)  # Use the full width of the container
-            else:
-                st.write("No data to show yet. Run a SPARQL query first.")
+                    column_config = {}
+                    for column in df.columns:
+                        # Check if the column contains URLs starting with "http"
+                        if df[column].apply(lambda x: isinstance(x, str) and x.startswith("http")).any():
+                            column_config[column] = st.column_config.LinkColumn(
+                                column,
+                                help=f"Links in the {column} column"
+                            )
+
+                    # Display the DataFrame with clickable links using st.data_editor
+                    if not df.empty:
+                        st.data_editor(
+                            df,
+                            column_config=column_config,
+                            hide_index=False,
+                            key="data_editor_2",  # Unique key for this table
+                            use_container_width=True  # Make it take up the whole page width
+
+
+                        )
+                    else:
+                        st.write("No data to show yet. Run a SPARQL query first.")
+
 
         with tab3:
             st.subheader("WebVOWL")
-            if st.session_state['jsonld_data']:
-                st.components.v1.iframe(webvowl_url, height=600, scrolling=True)
-            else:
-                st.write("Run a SPARQL query to visualize data in WebVOWL.")
+            st.components.v1.iframe(webvowl_url, height=600, scrolling=True)
 
     with bottom_section:
         tab1, tab2 = st.tabs(["Chat and Query Editor", "Visual Block Builder"])
@@ -122,32 +206,32 @@ LIMIT 100
                 # Function to display chat messages
                 def display_chat():
                     with chat_placeholder.container():
-                        for i, msg in enumerate(st.session_state.messages):
-                            with st.chat_message(msg["role"]):
-                                st.markdown(msg["content"])
-                                # Check if the message contains a SPARQL query
-                                if msg["role"] == "assistant":
-                                    extracted_sparql_query = extract_sparql_query(msg["content"])
-                                    # st.write(f"Extracted SPARQL Query: {extracted_sparql_query}")  # Debugging line
-                                    if extracted_sparql_query:
-                                        # st.write("Condition 'if extracted_sparql_query:' is True")  # Debugging line
-                                        if st.session_state['button_key'] is None:
-                                            st.session_state['button_key'] = f"apply_{i}_{msg['role']}_{uuid.uuid4()}"
-                                        # st.write(f"Button Key: {st.session_state['button_key']}")  # Debugging line
-                                        button_clicked = st.button("Apply this query", key=st.session_state['button_key'])
-                                        # st.write(f"Button clicked: {button_clicked}")  # Debugging line
-                                        if button_clicked:
-                                            # st.write("Button 'Apply this query' clicked")  # Debugging line
-                                            prefixes = """PREFIX dbo: <http://dbpedia.org/ontology/>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\n"""
-                                            st.session_state["sparql_query"] = prefixes + extracted_sparql_query
-                                            st.session_state["apply_query"] = True
-                                            st.session_state['button_key'] = None
-                                            st.rerun()
+                        with st.container(height=400, border=None,):
+                            for i, msg in enumerate(st.session_state.messages):
+                                with st.chat_message(msg["role"]):
+                                    st.markdown(msg["content"])
+                                    # Check if the message contains a SPARQL query and is the last message
+                                    if msg["role"] == "assistant" and i == len(st.session_state.messages) - 1:
+                                        extracted_sparql_query = extract_sparql_query(msg["content"])
+                                        if extracted_sparql_query:
+                                            if st.session_state['button_key'] is None:
+                                                st.session_state['button_key'] = f"apply_{i}_{msg['role']}_{uuid.uuid4()}"
+                                            button_clicked = st.button("Apply this query", key=st.session_state['button_key'])
+                                            if button_clicked:
+                                                prefixes = """PREFIX dbo: <http://dbpedia.org/ontology/>
+    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\n"""
+                                                st.session_state["sparql_query"] = prefixes + extracted_sparql_query
+                                                st.session_state["apply_query"] = True
+                                                st.session_state['button_key'] = None
+                                                st.session_state['query_executed'] = False
+                                                st.session_state['ace_editor_content'] = st.session_state["sparql_query"]
+                                                st.session_state['update_ace_editor'] = True
+                                                st.session_state['reload'] = True
+                                                st.experimental_set_query_params(reload=st.session_state['reload'])
 
                 # Function to extract SPARQL query from a message
                 def extract_sparql_query(message):
-                    match = re.search(r"SELECT.*?WHERE.*?\}", message, re.DOTALL)
+                    match = re.search(r"SELECT.*?WHERE\s*\{.*?\}\s*(LIMIT\s*\d+)?", message, re.DOTALL)
                     return match.group(0) if match else None
 
                 # Display conversation history
@@ -158,8 +242,13 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\n"""
                     # st.write(f"Updated SPARQL Query: {st.session_state['sparql_query']}")  # Debugging line
                     st.session_state["apply_query"] = False
 
+                # # Reload the page if needed
+                # if st.session_state.get('reload', False):
+                #     st.session_state['reload'] = False
+                #     st.experimental_set_query_params(reload=st.session_state['reload'])
+
                 # Accept user input
-                if prompt := st.chat_input("Ask for a SPARQL query or data insights...", key="chat_input_left"):
+                if prompt := st.chat_input("Ask for a SPARQL query in the code block format or data insights...", key="chat_input_left"):
                     # Add user message to chat history
                     st.session_state.messages.append({"role": "user", "content": prompt})
                     # Reset button key for new query
@@ -185,19 +274,53 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\n"""
                     display_chat()
 
                 # Add a button to reset the chat
-                if st.button("Reset Chat"):
+                st.markdown("""
+                    <style>.element-container:has(#button) + div button {
+                        background-color: #dc3545 !important;
+                        color: white !important;
+                    }</style>""", unsafe_allow_html=True)
+
+                st.markdown('<span id="button"></span>', unsafe_allow_html=True)
+                if st.button("Reset Chat" , key="red", type="primary"):
+                    st.experimental_set_query_params(reload=True)
                     st.session_state.messages = []
                     st.rerun()
 
             with col_right:
-                st.subheader("SPARQL Query Editor")
+                col_query_editor, col_run_button = st.columns([0.8, 0.2])
+                
+                with col_query_editor:
+                    st.subheader("SPARQL Query Editor")
+
+                with col_run_button:
+                    if st.button("▶ Run Query", key="run_merged_query", on_click=run_query):
+                        st.session_state['query_executed'] = True
+
+                    st.markdown(
+                        """
+                        <style>
+                        .stButton button {
+                            background-color: #28a745 !important;
+                            color: white !important;
+                        }
+                        </style>
+                        """,
+                        unsafe_allow_html=True
+                    )
+
+
 
                 # Create a placeholder for the success message
                 query_placeholder = st.empty()
 
                 # Use the current query in the session state
-                query_to_display = st.session_state["sparql_query"]
-                # st.write(f"Query to display in editor: {query_to_display}")  # Debugging line
+                if st.session_state.get('update_ace_editor', False):
+                    query_to_display = st.session_state["sparql_query"]
+                    st.session_state['update_ace_editor'] = False
+                    ace_editor_key = str(uuid.uuid4())  # Generate a new unique key
+                else:
+                    query_to_display = st.session_state.get("ace_editor_content", st.session_state["sparql_query"])
+                    ace_editor_key = "ace_editor"
 
                 ace_editor_content = ace.st_ace(
                     value=query_to_display,
@@ -207,14 +330,11 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\n"""
                     wrap=True,
                     auto_update=True,
                     min_lines=15,
-                    key=str(uuid.uuid4())  # Ensure a unique key to force re-render
+                    key=ace_editor_key  # Use the unique key
                 )
 
                 # Update the session state with the current content of the editor
-                st.session_state["sparql_query"] = ace_editor_content
-
-                if st.button("Run Query", key="run_merged_query", on_click=run_query):
-                    st.session_state['query_executed'] = True
+                st.session_state["ace_editor_content"] = ace_editor_content
 
                 # Display the success message in the placeholder
                 if 'query_executed' in st.session_state and st.session_state['query_executed']:
@@ -224,9 +344,27 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\n"""
                     st.session_state['query_executed'] = False
 
                 # Display the query output below the button in an expansion section
+                
+                # Detect columns that contain HTTP URLs and create a LinkColumn for them
+                column_config = {}
+                for column in st.session_state['df'].columns:
+                    # Check if the column contains URLs starting with "http"
+                    if st.session_state['df'][column].apply(lambda x: isinstance(x, str) and x.startswith("http")).any():
+                        column_config[column] = st.column_config.LinkColumn(
+                            column,
+                            help=f"More information on {column}"
+                        )
+
+                # Use `st.data_editor` to display the DataFrame with LinkColumn
                 with st.expander("Query Results"):
                     if not st.session_state['df'].empty:
-                        st.dataframe(st.session_state['df'], use_container_width=True)
+                        st.data_editor(
+                            st.session_state['df'],
+                            column_config=column_config,
+                            hide_index=True
+                        )
+                    else:
+                        st.write("No data to show yet. Run a SPARQL query first.")
 
         with tab2:
             st.subheader("Visual Block Builder")
@@ -235,11 +373,11 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\n"""
 def run_query():
     try:
         df = run_sparql_query(
-            st.session_state["sparql_query"],
+            st.session_state["ace_editor_content"],
             AppConfig().sparql_endpoint
         )
         st.session_state["df"] = df
-        st.session_state["jsonld_data"] = convert_to_jsonld(df)
+        st.session_state["sparql_query"] = st.session_state["ace_editor_content"]
         st.session_state['query_success'] = True
     except Exception as e:
         st.session_state['query_success'] = False

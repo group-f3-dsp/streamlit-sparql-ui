@@ -13,7 +13,7 @@ class AppConfig:
         self.endpoint = "https://dbpedia.org/sparql"  # Set SPARQL endpoint directly
 
         self.api_key = st.secrets.get("GEMINI_API_KEY")
-        self.sparql_endpoint = os.getenv("SPARQL_ENDPOINT", "https://dbpedia.org/sparql")
+        self.default_sparql_endpoint = "https://dbpedia.org/sparql"  # Default SPARQL endpoint
 
         if self.gemini_api_key:
             genai.configure(api_key=self.gemini_api_key)

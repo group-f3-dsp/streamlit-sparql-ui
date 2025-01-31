@@ -1,0 +1,22 @@
+SPARQL_ENDPOINTS = [
+    "https://dbpedia.org/sparql",
+    "https://query.wikidata.org/sparql",
+    "https://linkeddata.uriburner.com/sparql",
+    "https://sparql.europeana.eu/",
+    "http://lod.openlinksw.com/sparql",
+    "https://publications.europa.eu/webapi/rdf/sparql",
+    "https://statistics.data.gov.uk/sparql",
+    "https://agrovoc.fao.org/sparql",
+    "https://geoknowledgegraph.org/sparql",
+    "https://bio2rdf.org/sparql",
+    "https://www.ebi.ac.uk/rdf/services/sparql",
+    "https://wifo5-04.informatik.uni-mannheim.de/drugbank/sparql",
+    "http://sparql.geonames.org/",
+    "http://worldbank.270a.info/sparql",
+    "https://www.ebi.ac.uk/ols/api/sparql",
+    "http://id.loc.gov/sparql",
+    "http://vocab.getty.edu/sparql",
+    "https://api.semanticscholar.org/graph/v1",
+    "https://data.nasa.gov/sparql",
+    "Other"
+]

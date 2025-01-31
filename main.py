@@ -9,6 +9,7 @@ from config import AppConfig
 from sparql_utils import run_sparql_query
 # from server_utils import JSONLDServer  # Commented out as it's no longer needed
 from chat_utils import ChatManager
+from endpoints import SPARQL_ENDPOINTS
 
 # Set page configuration
 st.set_page_config(layout="wide")
@@ -79,7 +80,7 @@ def main():
 
     # Initialize chat history
     if "messages" not in st.session_state:
-        st.session_state.messages = []
+        st.session_state.messages = [{"role": "assistant", "content": "Hello! How can I assist you today?"}]
 
     config = AppConfig()
     chat_manager = ChatManager()
@@ -212,15 +213,13 @@ LIMIT 100
                                     st.markdown(msg["content"])
                                     # Check if the message contains a SPARQL query and is the last message
                                     if msg["role"] == "assistant" and i == len(st.session_state.messages) - 1:
-                                        extracted_sparql_query = extract_sparql_query(msg["content"])
+                                        extracted_sparql_query, extracted_prefixes = extract_sparql_query_and_prefixes(msg["content"])
                                         if extracted_sparql_query:
                                             if st.session_state['button_key'] is None:
                                                 st.session_state['button_key'] = f"apply_{i}_{msg['role']}_{uuid.uuid4()}"
                                             button_clicked = st.button("Apply this query", key=st.session_state['button_key'])
                                             if button_clicked:
-                                                prefixes = """PREFIX dbo: <http://dbpedia.org/ontology/>
-    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\n"""
-                                                st.session_state["sparql_query"] = prefixes + extracted_sparql_query
+                                                st.session_state["sparql_query"] = extracted_prefixes + "\n\n" + extracted_sparql_query
                                                 st.session_state["apply_query"] = True
                                                 st.session_state['button_key'] = None
                                                 st.session_state['query_executed'] = False
@@ -229,10 +228,11 @@ LIMIT 100
                                                 st.session_state['reload'] = True
                                                 st.experimental_set_query_params(reload=st.session_state['reload'])
 
-                # Function to extract SPARQL query from a message
-                def extract_sparql_query(message):
-                    match = re.search(r"SELECT.*?WHERE\s*\{.*?\}\s*(LIMIT\s*\d+)?", message, re.DOTALL)
-                    return match.group(0) if match else None
+                # Function to extract SPARQL query and prefixes from a message
+                def extract_sparql_query_and_prefixes(message):
+                    prefixes = re.findall(r"PREFIX\s+\w+:\s+<[^>]+>", message)
+                    query = re.search(r"SELECT.*?WHERE\s*\{.*?\}\s*(LIMIT\s*\d+)?", message, re.DOTALL)
+                    return query.group(0) if query else None, "\n".join(prefixes)
 
                 # Display conversation history
                 display_chat()
@@ -261,6 +261,7 @@ LIMIT 100
                         model=st.session_state["openai_model"],
                         messages=[
                             {"role": "system", "content": f"The current SPARQL query is: {st.session_state['sparql_query']}"},
+                            {"role": "system", "content": f"The current SPARQL endpoint is: {st.session_state['sparql_endpoint']}"},
                             *[
                                 {"role": m["role"], "content": m["content"]}
                                 for m in st.session_state.messages
@@ -292,27 +293,6 @@ LIMIT 100
                 with col_query_editor:
                     st.subheader("SPARQL Query Editor")
 
-                with col_run_button:
-                    if st.button("▶ Run Query", key="run_merged_query", on_click=run_query):
-                        st.session_state['query_executed'] = True
-
-                    st.markdown(
-                        """
-                        <style>
-                        .stButton button {
-                            background-color: #28a745 !important;
-                            color: white !important;
-                        }
-                        </style>
-                        """,
-                        unsafe_allow_html=True
-                    )
-
-
-
-                # Create a placeholder for the success message
-                query_placeholder = st.empty()
-
                 # Use the current query in the session state
                 if st.session_state.get('update_ace_editor', False):
                     query_to_display = st.session_state["sparql_query"]
@@ -336,6 +316,35 @@ LIMIT 100
                 # Update the session state with the current content of the editor
                 st.session_state["ace_editor_content"] = ace_editor_content
 
+                # Add SPARQL endpoint input field below the query editor
+                selected_endpoint = st.selectbox("Select SPARQL Endpoint", SPARQL_ENDPOINTS, index=SPARQL_ENDPOINTS.index(st.session_state.get('sparql_endpoint', "https://dbpedia.org/sparql")))
+
+                if selected_endpoint == "Other":
+                    sparql_endpoint = st.text_input("Enter SPARQL Endpoint", st.session_state.get('sparql_endpoint', ""))
+                else:
+                    sparql_endpoint = selected_endpoint
+
+                st.session_state['sparql_endpoint'] = sparql_endpoint
+
+                with col_run_button:
+                    if st.button("▶ Run Query", key="run_merged_query", on_click=run_query):
+                        st.session_state['query_executed'] = True
+
+                    st.markdown(
+                        """
+                        <style>
+                        .stButton button {
+                            background-color: #28a745 !important;
+                            color: white !important;
+                        }
+                        </style>
+                        """,
+                        unsafe_allow_html=True
+                    )
+
+                # Create a placeholder for the success message
+                query_placeholder = st.empty()
+
                 # Display the success message in the placeholder
                 if 'query_executed' in st.session_state and st.session_state['query_executed']:
                     if 'query_success' in st.session_state and st.session_state['query_success']:
@@ -343,7 +352,7 @@ LIMIT 100
                         query_placeholder.success(f"{context}")
                     st.session_state['query_executed'] = False
 
-                # Display the query output below the button in an expansion section
+                # Display the query output below the success message in an expansion section
                 
                 # Detect columns that contain HTTP URLs and create a LinkColumn for them
                 column_config = {}
@@ -374,7 +383,7 @@ def run_query():
     try:
         df = run_sparql_query(
             st.session_state["ace_editor_content"],
-            AppConfig().sparql_endpoint
+            st.session_state['sparql_endpoint']
         )
         st.session_state["df"] = df
         st.session_state["sparql_query"] = st.session_state["ace_editor_content"]
