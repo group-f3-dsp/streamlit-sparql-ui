@@ -317,7 +317,7 @@ LIMIT 100
                 st.session_state["ace_editor_content"] = ace_editor_content
 
                 # Add SPARQL endpoint input field below the query editor
-                selected_endpoint = st.selectbox("Select SPARQL Endpoint", SPARQL_ENDPOINTS, index=SPARQL_ENDPOINTS.index(st.session_state.get('sparql_endpoint', "https://dbpedia.org/sparql")))
+                selected_endpoint = st.selectbox("Select SPARQL Endpoint", SPARQL_ENDPOINTS, index=SPARQL_ENDPOINTS.index(st.session_state.get('sparql_endpoint', "https://dbpedia.org/sparql")) if st.session_state.get('sparql_endpoint', "https://dbpedia.org/sparql") in SPARQL_ENDPOINTS else SPARQL_ENDPOINTS.index("Other"))
 
                 if selected_endpoint == "Other":
                     sparql_endpoint = st.text_input("Enter SPARQL Endpoint", st.session_state.get('sparql_endpoint', ""))
