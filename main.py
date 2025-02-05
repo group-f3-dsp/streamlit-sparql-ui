@@ -383,7 +383,7 @@ LIMIT 100
 
         with tab2:
             st.subheader("Visual Block Builder")
-            st.components.v1.iframe("https://leipert.github.io/vsb/dbpedia/#/workspace", height=800, scrolling=True)
+            st.components.v1.iframe("http://leipert.github.io/vsb/dbpedia/#/workspace", height=800, scrolling=True)
 
 def run_query():
     try:
